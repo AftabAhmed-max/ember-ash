@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ember & Ash — Fine Dining Restaurant Website
 
-## Getting Started
+> Where fire meets flavour. A premium fine dining experience rooted in open-fire cooking.
 
-First, run the development server:
+🌐 **Live Site:** [ember-ash-zeta.vercel.app](https://ember-ash-zeta.vercel.app/)
+
+---
+
+## About
+
+Ember & Ash is a fictional fine dining restaurant website built as a portfolio showcase project for Stackwork. It demonstrates a fully functional, visually immersive restaurant web experience with reservations, menu, gallery, and about pages.
+
+---
+
+## Pages
+
+- **Home** — Fullscreen hero, philosophy, signature dishes, testimonials
+- **Menu** — Full menu organized by category with descriptions and pricing
+- **Reservations** — Booking form with date, time, and guest selection
+- **Gallery** — Immersive photo gallery of food and ambiance
+- **About** — Restaurant story, team, and philosophy
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js 14 | Framework |
+| Tailwind CSS v4 | Styling |
+| Framer Motion | Animations |
+| Unsplash | Photography |
+| Vercel | Deployment |
+
+---
+
+## Running Locally
 
 ```bash
+git clone https://github.com/AftabAhmed-max/ember-ash.git
+cd ember-ash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Part of Stackwork Portfolio
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is a demo built by **[Stackwork](https://stackwork.netlify.app/)** — a digital agency serving businesses across India and the Gulf.
