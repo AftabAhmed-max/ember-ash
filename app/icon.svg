@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#0E0E0E"/>
+  <!-- Flame outer -->
+  <path d="M16 4 C16 4, 20 8, 20 12 C20 12, 22 10, 21 7 C21 7, 26 11, 25 17 C24 21, 21 24, 16 27 C11 24, 8 21, 7 17 C6 11, 11 7, 11 7 C10 10, 12 12, 12 12 C12 8, 16 4, 16 4 Z" fill="#C8552A"/>
+  <!-- Flame inner gold -->
+  <path d="M16 10 C16 10, 18 13, 18 16 C18 18, 17 20, 16 21 C15 20, 14 18, 14 16 C14 13, 16 10, 16 10 Z" fill="#D4AF6A" opacity="0.9"/>
+</svg>
