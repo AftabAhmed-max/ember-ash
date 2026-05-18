@@ -2,10 +2,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { MapPin, Phone, Mail, Clock, Share2, Link2, Globe } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Camera, Share2, Globe } from "lucide-react";
+
+const socials = [
+  { Icon: Camera, label: "Follow us on Instagram", href: "#" },
+  { Icon: Share2, label: "Follow us on Twitter / X", href: "#" },
+  { Icon: Globe, label: "Find us online", href: "#" },
+];
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -15,8 +21,17 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    await new Promise((res) => setTimeout(res, 1200));
-    setStatus("success");
+    try {
+      const res = await fetch("https://formspree.io/f/https://formspree.io/f/xzdwzbvb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) setStatus("success");
+      else setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputClass = "w-full bg-transparent border border-[#3A3530] text-[#F5EED8] text-sm px-4 py-3.5 focus:outline-none focus:border-[#B8964A] transition-colors duration-300 placeholder:text-[#3A3530]";
@@ -95,12 +110,15 @@ export default function ContactPage() {
                 <div>
                   <p className="text-[10px] tracking-[0.4em] text-[#B8964A] uppercase mb-4">Follow Us</p>
                   <div className="flex gap-3">
-                    {[
-                      { Icon: Share2, label: "@emberandash" },
-                      { Icon: Link2, label: "Ember & Ash" },
-                      
-                    ].map(({ Icon, label }, i) => (
-                      <a key={i} href="#" className="w-10 h-10 border border-[#3A3530] flex items-center justify-center text-[#6B6358] hover:border-[#C8552A] hover:text-[#C8552A] transition-all duration-300" title={label}>
+                    {socials.map(({ Icon, label, href }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        aria-label={label}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 border border-[#3A3530] flex items-center justify-center text-[#6B6358] hover:border-[#C8552A] hover:text-[#C8552A] transition-all duration-300"
+                      >
                         <Icon size={14} />
                       </a>
                     ))}
@@ -165,6 +183,12 @@ export default function ContactPage() {
                     >
                       {status === "loading" ? "Sending..." : "Send Message"}
                     </button>
+
+                    {status === "error" && (
+                      <p className="text-[11px] text-[#C8552A] text-center tracking-wider">
+                        Something went wrong. Please email us directly at dine@emberash.in or try again.
+                      </p>
+                    )}
                   </form>
                 )}
               </motion.div>
@@ -179,6 +203,7 @@ export default function ContactPage() {
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9!2d72.8347!3d19.0596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8e5a8a8a8a8%3A0x8a8a8a8a8a8a8a8a!2sBandra+West%2C+Mumbai!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
           width="100%"
           height="100%"
+          title="Ember & Ash location map"
           style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.4)" }}
           allowFullScreen
           loading="lazy"

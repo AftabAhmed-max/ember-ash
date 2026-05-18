@@ -1,13 +1,19 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Share2, Link2, Globe, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Camera, Share2, Globe } from "lucide-react";
 
 const hours = [
   { day: "Tuesday – Thursday", time: "6:00 pm – 10:30 pm" },
   { day: "Friday – Saturday", time: "5:30 pm – 11:30 pm" },
   { day: "Sunday", time: "6:00 pm – 10:00 pm" },
   { day: "Monday", time: "Closed" },
+];
+
+const socials = [
+  { Icon: Camera, label: "Follow us on Instagram", href: "#" },
+  { Icon: Share2, label: "Follow us on Twitter / X", href: "#" },
+  { Icon: Globe, label: "Find us online", href: "#" },
 ];
 
 export default function Footer() {
@@ -33,10 +39,13 @@ export default function Footer() {
               An intimate fine dining experience rooted in open-fire cooking, aged spirits, and the ritual of gathering.
             </p>
             <div className="flex gap-4">
-              {[Share2, Link2, Globe].map((Icon, i) => (
+              {socials.map(({ Icon, label, href }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 border border-[#3A3530] flex items-center justify-center text-[#6B6358] hover:border-[#C8552A] hover:text-[#C8552A] transition-all duration-300"
                 >
                   <Icon size={14} />
@@ -115,6 +124,7 @@ export default function Footer() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9!2d72.8347!3d19.0596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8e5a8a8a8a8%3A0x8a8a8a8a8a8a8a8a!2sBandra+West%2C+Mumbai!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
+                title="Ember & Ash location map"
                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.5)" }}
                 allowFullScreen
                 loading="lazy"
@@ -129,7 +139,7 @@ export default function Footer() {
       <div className="border-t border-[#3A3530]/30 py-6">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-[11px] text-[#6B6358] tracking-wider">
-            © 2025 Ember & Ash. All rights reserved.
+            © {new Date().getFullYear()} Ember & Ash. All rights reserved.
           </p>
           <p className="text-[10px] text-[#3A3530] tracking-widest uppercase">
             Where Fire Meets Flavour
