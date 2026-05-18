@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X, ZoomIn } from "lucide-react";
@@ -26,9 +26,18 @@ const filterOptions = ["All", "Food", "Ambiance", "Drinks", "Desserts", "Kitchen
 
 export default function GalleryPage() {
   const [filter, setFilter] = useState("All");
-  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [lightboxImg, setLightboxImg] = useState<{ src: string; alt: string } | null>(null);
 
   const filtered = filter === "All" ? galleryImages : galleryImages.filter((img) => img.category === filter);
+
+  useEffect(() => {
+    if (!lightboxImg) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxImg(null);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightboxImg]);
 
   return (
     <>
@@ -82,15 +91,24 @@ export default function GalleryPage() {
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                onClick={() => setLightboxImg(img.src)}
-                className={`relative overflow-hidden cursor-pointer group ${img.span || ""}`}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${img.alt}`}
+                onClick={() => setLightboxImg({ src: img.src, alt: img.alt })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setLightboxImg({ src: img.src, alt: img.alt });
+                  }
+                }}
+                className={`relative overflow-hidden cursor-pointer group focus:outline-none focus:ring-2 focus:ring-[#B8964A] ${img.span || ""}`}
               >
                 <Image
                   src={img.src} alt={img.alt} fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-[#0E0E0E]/0 group-hover:bg-[#0E0E0E]/50 transition-all duration-400" />
+                <div className="absolute inset-0 bg-[#0E0E0E]/0 group-hover:bg-[#0E0E0E]/50 transition-all duration-500" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <ZoomIn size={24} className="text-[#F5EED8] mb-2" />
                   <span className="text-[10px] tracking-[0.3em] text-[#D4C9A8] uppercase">{img.category}</span>
@@ -117,6 +135,7 @@ export default function GalleryPage() {
           >
             <button
               onClick={() => setLightboxImg(null)}
+              aria-label="Close lightbox"
               className="absolute top-6 right-6 text-[#F5EED8] hover:text-[#C8552A] transition-colors"
             >
               <X size={24} />
@@ -129,7 +148,7 @@ export default function GalleryPage() {
               className="relative max-w-5xl max-h-[85vh] w-full aspect-[4/3] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image src={lightboxImg} alt="Gallery" fill className="object-contain" sizes="90vw" />
+              <Image src={lightboxImg.src} alt={lightboxImg.alt} fill className="object-contain" sizes="90vw" />
             </motion.div>
           </motion.div>
         )}

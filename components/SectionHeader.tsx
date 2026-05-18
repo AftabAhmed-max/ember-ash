@@ -26,7 +26,7 @@ export default function SectionHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-5 justify-center"
+          className={`flex items-center gap-3 mb-5 ${center ? "justify-center" : ""}`}
         >
           <span className="w-8 h-px bg-[#B8964A] opacity-60" />
           <span className="text-[10px] tracking-[0.4em] uppercase text-[#B8964A] font-body">

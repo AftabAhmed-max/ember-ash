@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 
 type Category = "starters" | "mains" | "desserts" | "drinks";
@@ -203,9 +204,9 @@ export default function MenuPage() {
               <div className="text-[10px] tracking-wider text-[#6B6358] uppercase mt-1">Experience</div>
             </div>
           </div>
-          <a href="/reservations" className="inline-block px-10 py-4 bg-[#C8552A] text-white text-[11px] tracking-[0.3em] uppercase hover:bg-[#E06B3A] transition-colors duration-300">
+          <Link href="/reservations" className="inline-block px-10 py-4 bg-[#C8552A] text-white text-[11px] tracking-[0.3em] uppercase hover:bg-[#E06B3A] transition-colors duration-300">
             Book Tasting Menu
-          </a>
+          </Link>
         </div>
       </section>
     </>

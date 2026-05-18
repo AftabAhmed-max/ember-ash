@@ -40,13 +40,17 @@ export default function ReservationsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    const res = await fetch("https://formspree.io/f/xpqblayv", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, guests }),
-    });
-    if (res.ok) setStatus("success");
-    else setStatus("error");
+    try {
+      const res = await fetch("https://formspree.io/f/xpqblayv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, guests }),
+      });
+      if (res.ok) setStatus("success");
+      else setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputClass = "w-full bg-transparent border border-[#3A3530] text-[#F5EED8] text-sm px-4 py-3.5 focus:outline-none focus:border-[#B8964A] transition-colors duration-300 placeholder:text-[#3A3530]";
@@ -129,6 +133,8 @@ export default function ReservationsPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="border border-[#3A3530]/50 p-8 md:p-10 space-y-6">
+                    {/* Honeypot field — hidden from users, filled only by bots */}
+                    <input type="text" name="_gotcha" tabIndex={-1} aria-hidden="true" style={{ display: "none" }} />
                     <h3 className="text-2xl text-[#F5EED8] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400 }}>
                       Request a Table
                     </h3>

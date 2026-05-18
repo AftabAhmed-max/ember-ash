@@ -76,6 +76,9 @@ export default function AboutPage() {
               viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }}
               className="relative h-[500px] lg:h-[600px]"
             >
+              {/* Decorative corner frames — placed before Image so they sit behind it */}
+              <div className="absolute -bottom-6 -left-6 w-40 h-40 border border-[#C8552A]/20" />
+              <div className="absolute -top-6 -right-6 w-40 h-40 border border-[#B8964A]/15" />
               <Image
                 src="https://images.unsplash.com/photo-1428515613728-6b4607e44363?w=900&q=90"
                 alt="Open fire kitchen"
@@ -83,8 +86,6 @@ export default function AboutPage() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute -bottom-6 -left-6 w-40 h-40 border border-[#C8552A]/20 -z-10" />
-              <div className="absolute -top-6 -right-6 w-40 h-40 border border-[#B8964A]/15 -z-10" />
             </motion.div>
           </div>
         </div>
